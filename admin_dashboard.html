@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Bree Serif', serif;
+            background-image: url('{{ url_for('static', filename='bg-test6.jpg') }}');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .centered-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 100px;
+        }
+        .big-btn {
+            width: 350px;
+            height: 60px;
+            font-size: 22px;
+            background-color: #176B87;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .big-btn:hover {
+            background-color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="centered-buttons">
+        <form action="/data" method="POST" style="margin: 0;">
+            <button type="submit" class="big-btn">Student Database</button>
+        </form>
+        <form action="/staff_data" method="POST" style="margin: 0;">
+            <button type="submit" class="big-btn">Staff Database</button>
+        </form>
+        <a href="/admin_feedback" class="big-btn text-center" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">View User Feedback</a>
+    </div>
+</body>
+</html> 

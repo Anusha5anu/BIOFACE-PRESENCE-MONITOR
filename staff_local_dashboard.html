@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Attendance Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .center { text-align: center; }
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 30px 10px;
+            margin: 10px 0;
+        }
+        .stat-title { font-size: 1.2em; color: #555; }
+        .stat-value { font-size: 2.5em; font-weight: bold; color: #176B87; }
+        .dashboard-row { margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center">Staff Attendance Dashboard</h1>
+        <div class="row dashboard-row">
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card center">
+                    <div class="stat-title">Total Staff</div>
+                    <div class="stat-value">{{ total_staff }}</div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card center">
+                    <div class="stat-title">Staff Present Today</div>
+                    <div class="stat-value">{{ staff_present }}</div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card center">
+                    <div class="stat-title">Attendance Days (All Time)</div>
+                    <div class="stat-value">{{ trend_counts|sum }}</div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card center">
+                    <div class="stat-title">Last Attendance Date</div>
+                    <div class="stat-value">{{ trend_dates[-1] if trend_dates else '-' }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="center">Attendance by Staff</h3>
+                <div id="bar-chart"></div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="center">Average Duration (Mins) by Staff</h3>
+                <div id="duration-bar"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="center">Attendance Trend</h3>
+                <div id="line-chart"></div>
+            </div>
+        </div>
+        <a href="/admin_dashboard" class="btn btn-primary">Back to Admin Dashboard</a>
+    </div>
+    <script>
+        // Bar chart: Attendance by Staff
+        var barData = [{
+            x: {{ staff_names|tojson }},
+            y: {{ staff_counts|tojson }},
+            type: 'bar',
+            marker: {color: '#176B87'}
+        }];
+        Plotly.newPlot('bar-chart', barData, {margin: {t: 30}, xaxis: {title: 'Staff'}, yaxis: {title: 'Attendance Count'}});
+        // Duration bar chart
+        var durationData = [{
+            x: {{ duration_names|tojson }},
+            y: {{ duration_values|tojson }},
+            type: 'bar',
+            marker: {color: '#2a9d8f'}
+        }];
+        Plotly.newPlot('duration-bar', durationData, {margin: {t: 30}, xaxis: {title: 'Staff'}, yaxis: {title: 'Avg Duration (Mins)'}});
+        // Line chart: Attendance Trend
+        var lineData = [{
+            x: {{ trend_dates|tojson }},
+            y: {{ trend_counts|tojson }},
+            type: 'scatter',
+            mode: 'lines+markers',
+            marker: {color: '#176B87'}
+        }];
+        Plotly.newPlot('line-chart', lineData, {margin: {t: 30}, xaxis: {title: 'Date'}, yaxis: {title: 'Staff Present'}});
+    </script>
+</body>
+</html> 

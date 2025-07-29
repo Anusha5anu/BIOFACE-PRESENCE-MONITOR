@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Feedback Submissions</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">User Feedback Submissions</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Feedback</th>
+                    <th>Submitted At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fb in feedbacks %}
+                <tr>
+                    <td>{{ fb['name'] }}</td>
+                    <td>{{ fb['email'] }}</td>
+                    <td>{{ fb['phone'] }}</td>
+                    <td>{{ fb['feedback'] }}</td>
+                    <td>{{ fb['submitted_at'] }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="text-center">No feedback submitted yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/admin_dashboard" class="btn btn-secondary">Back to Admin Dashboard</a>
+    </div>
+</body>
+</html> 
