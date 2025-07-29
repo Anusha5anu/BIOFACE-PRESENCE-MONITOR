@@ -16,6 +16,8 @@ Face Recognition based Attendance Management System with a Flask web application
 - Can detect multiple faces and mark attendance at a time 
 - Works in bright and low light conditions
 - Attendance dashboards using Power BI
+IMAGE
+![Image](https://github.com/user-attachments/assets/9ade5fa3-ce7a-449e-bcf0-369422c0eb46)
 
 
 
